@@ -13,7 +13,7 @@ services:
         source: mongodb
         target: /data/db
         volume:
-          nocopy:true      
+          nocopy: true        
         
 
             
