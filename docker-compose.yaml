@@ -3,8 +3,16 @@ networks:
     roboshop:
       driver: bridge
 volumes:
-   mongodb:   
+   mongodb:
+   redis:
+   mysql:
+   rabbitmq:   
 services:
+    catalogue:
+     image: catalogue:v1
+     container_name: catalogue
+     depends_on:
+      - mongodb
     mongodb:
      image: mongodb:v1
      container_name: mongodb
@@ -13,7 +21,67 @@ services:
         source: mongodb
         target: /data/db
         volume:
-          nocopy: true        
+          nocopy: true 
+     redis:
+      image: redis:v1   
+      container_name: redis
+      volumes:
+      - type: volume
+        source: redis
+        target: /data
+        volume:
+          nocopy: true          
+      web:
+        image: web:v1
+        container_name: web
+        ports:
+        - "80:80"
+        depends_on:
+         - catalogue
+      user:
+        image: user:v1
+        container_name: user
+        depends_on:
+         - mongodb
+         - redis
+      cart:
+        image: cart:v1
+        container_name: cart
+        depends_on:
+          - catalogue
+          - redis 
+    mysql:
+      image: mysql:v1   
+      container_name: mysql
+      volumes:
+      - type: volume
+        source: mysql
+        target: /var/lib/mysql
+        volume:
+          nocopy: true 
+    shipping:
+      image: shipping:v1
+      container_name: shipping
+      depends_on:
+        - cart
+        - mysql
+    rabbitmq:
+      image: rabbitmq:v1   
+      container_name: rabbitmq
+      volumes:
+      - type: volume
+        source: rabbitmq
+        target: /var/lib/rabbitmq
+        volume:
+          nocopy: true 
+    payment:
+      image: payment:v1
+      container_name: payment
+      depens_on:
+       - rabbitmq  
+     
         
+
+
 
             
