@@ -23,7 +23,7 @@ services:
         volume:
           nocopy: true 
      redis:
-      image: redis:v1   
+      image: redis 
       container_name: redis
       volumes:
       - type: volume
