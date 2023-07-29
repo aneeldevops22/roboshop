@@ -1,0 +1,19 @@
+version: '3.9'
+networks:
+    roboshop:
+      driver:bridge
+    volumes:
+      mongodb
+services:
+    mongodb:
+     image: mongodb:v1
+     container_name: mongodb
+     volumes:
+      - type: volume
+        source: mongodb
+        target: /data/db
+        volume:
+          nocopy:true      
+        
+
+            
