@@ -22,7 +22,7 @@ services:
         target: /data/db
         volume:
           nocopy: true
-          
+
     redis:      
      image: redis 
      container_name: redis
@@ -78,7 +78,7 @@ services:
     payment:
       image: payment:v1
       container_name: payment
-      depens_on:
+      depends_on:
        - rabbitmq
        - cart
        - user  
