@@ -2,8 +2,6 @@ version: '3.9'
 networks:
     roboshop:
       driver:bridge
-    volumes:
-      mongodb
 services:
     mongodb:
      image: mongodb:v1
