@@ -78,7 +78,9 @@ services:
       image: payment:v1
       container_name: payment
       depens_on:
-       - rabbitmq  
+       - rabbitmq
+       - cart
+       - user  
      
         
 
