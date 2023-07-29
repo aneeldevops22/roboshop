@@ -21,30 +21,30 @@ services:
         source: mongodb
         target: /data/db
         volume:
-          nocopy: true 
-     redis:
-      image: redis 
-      container_name: redis
-      volumes:
-      - type: volume
-        source: redis
-        target: /data
-        volume:
-          nocopy: true          
-      web:
-        image: web:v1
-        container_name: web
-        ports:
-        - "80:80"
-        depends_on:
-         - catalogue
-      user:
+          nocopy: true
+redis:      
+  image: redis 
+  container_name: redis
+  volumes:
+  - type: volume
+    source: redis
+    target: /data
+    volume:
+      nocopy: true          
+    web:
+     image: web:v1
+     container_name: web
+     ports:
+       - "80:80"
+    depends_on:
+        - catalogue
+    user:
         image: user:v1
         container_name: user
         depends_on:
          - mongodb
          - redis
-      cart:
+    cart:
         image: cart:v1
         container_name: cart
         depends_on:
